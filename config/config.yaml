@@ -1,0 +1,6 @@
+trucks:
+  num_trucks: 5
+  capacities: [30] # 30, 40 and 50 for CVRP20, 50 and 100
+file: data/20_customers.csv
+time: 1
+matrix_factor : 100 # 100 works

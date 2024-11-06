@@ -1,0 +1,8 @@
+# python version 3.12.7
+
+numpy
+ortools
+matplotlib
+pandas
+tqdm
+PyYAML
