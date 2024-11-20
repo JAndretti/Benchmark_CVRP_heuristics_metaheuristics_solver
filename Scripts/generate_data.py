@@ -48,6 +48,6 @@ if __name__ == "__main__":
     num_customers = 100  # Change this value as needed
     filename = f"{num_customers}_customers.csv"  # Change this value as needed
     save = True
-    generate_data(num_customers, filename, save)
+    generate_data(num_customers, filename, save=False)
     if save:
         print(f"Data generated and saved to 'data/{filename}'")

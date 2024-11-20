@@ -3,8 +3,9 @@ from func import (
     plot_routes,
     calculate_and_display_distances,
     data_model,
-    nearest_neighbor_algorithme,
     simulated_annealing,
+    greedy,
+    generate_list_of_sites,
 )
 
 # Load the YAML configuration
@@ -13,7 +14,9 @@ config = load_config("config/config.yaml")
 
 df, data = data_model(config)
 
-routes, truck_list, full_route = nearest_neighbor_algorithme(df, data)
+site = generate_list_of_sites(data)
+
+full_route, routes, truck_list = greedy(data, site)
 
 truck_distances, total_distance = calculate_and_display_distances(
     routes, data["distance_matrix"]
@@ -28,7 +31,7 @@ plot_routes(
 )
 
 # Paramètres de recuit simulé
-initial_temp = 10000
+initial_temp = 100000000
 cooling_rate = 0.995
 min_temp = 1
 

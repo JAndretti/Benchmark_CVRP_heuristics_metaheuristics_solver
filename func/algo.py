@@ -4,6 +4,8 @@ from .check import check_capacity, check_and_correct_route
 
 import numpy as np
 import random
+from tqdm import tqdm
+
 
 # NEAREST NEIGHBOR
 
@@ -297,3 +299,62 @@ def simulated_annealing(
     routes = convert_routes_to_multiple_routes(best_route)
 
     return best_route, best_truck_list, best_distance, routes
+
+
+# GREEDY
+
+
+def generate_list_of_sites(data):
+    len_site = len(data["coordinates"])
+    site = [i for i in range(len_site)]
+    site = site[1:]
+    return site
+
+
+def generate_multiple_lists_of_sites(data, nbr_of_seed=1000000):
+    """Generate multiple lists of sites."""
+    len_site = len(data["coordinates"])
+    site = [i for i in range(len_site)]
+    site = site[1:]
+    uniques = set()
+    print("Generating multiple lists of sites...")
+    for seed in tqdm(range(nbr_of_seed)):
+        random.seed(seed)
+        list_shuffle = site[:]
+        random.shuffle(list_shuffle)
+
+        uniques.add(tuple(list_shuffle))
+
+    return [list(p) for p in uniques]
+
+
+def greedy(data, site):
+    """Apply the greedy algorithm to a list of site."""
+    route = []
+    truck_routes = []
+    truck_routes.append(0)
+    route.append(0)
+    current_capacity = 0
+    current_truck = 0
+    while site:
+        if (
+            data["demands"][site[0]] + current_capacity
+            <= data["vehicle_capacities"][current_truck]
+        ):
+            current_capacity += data["demands"][site[0]]
+            truck_routes.append(current_truck)
+            route.append(site[0])
+            site.pop(0)
+        else:
+            route.append(0)
+            route.append(0)
+            truck_routes.append(current_truck)
+            current_truck = (current_truck + 1) % data["num_vehicles"]
+            truck_routes.append(current_truck)
+            current_capacity = 0
+    route.append(0)
+    truck_routes.append(current_truck)
+
+    routes = convert_routes_to_multiple_routes(route)
+
+    return route, routes, truck_routes

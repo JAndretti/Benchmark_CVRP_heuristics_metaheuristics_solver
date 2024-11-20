@@ -6,3 +6,5 @@ matplotlib
 pandas
 tqdm
 PyYAML
+torch 
+torch_geometric

@@ -31,8 +31,6 @@ plot_routes(
     len(routes),
 )
 
-# TODO use optimized_routes instead of full_route
-
 routes, route = opt2_outside(
     full_route,
     truck_list,
