@@ -8,20 +8,17 @@ def distance(x1, y1, x2, y2):
 
 
 # Function to calculate the distance matrix
-def calculate_distance_matrix(coordinates):
-    """Calculate the distance matrix between coordinates."""
-    num_points = len(coordinates)
-    dist_matrix = [[0] * num_points for _ in range(num_points)]
+def calculate_distance_matrix(locations):
+    num_locations = len(locations)
+    distance_matrix = np.zeros((num_locations, num_locations), dtype=np.float64)
 
-    for i in range(num_points):
-        for j in range(num_points):
-            dist_matrix[i][j] = distance(
-                coordinates[i][0],
-                coordinates[i][1],
-                coordinates[j][0],
-                coordinates[j][1],
-            )
-    return dist_matrix
+    for i in range(num_locations):
+        for j in range(num_locations):
+            x1, y1 = locations[i]
+            x2, y2 = locations[j]
+            distance_matrix[i, j] = distance(x1, y1, x2, y2)
+
+    return distance_matrix
 
 
 # Function to calculate and display distances
