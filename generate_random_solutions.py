@@ -14,7 +14,7 @@ from tqdm import tqdm
 config = load_config("config/config.yaml")
 
 df, data = data_model(config)
-nbr_of_seed = 5000000
+nbr_of_seed = 500000
 all_sites = generate_multiple_lists_of_sites(data, nbr_of_seed)
 print(f"Number of lists: {len(all_sites)}")
 
